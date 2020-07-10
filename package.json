@@ -34,7 +34,7 @@
     "extended",
     "static extension methods"
   ],
-  "author": "@Codibre",
+  "author": "Thiago O Santos <tos.oliveira@gmail.com>",
   "license": "MIT",
   "devDependencies": {
     "@codibre/confs": "0.0.6"
