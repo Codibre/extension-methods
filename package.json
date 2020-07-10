@@ -38,5 +38,17 @@
   "license": "MIT",
   "devDependencies": {
     "@codibre/confs": "0.0.6"
-  }
+  },
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Codibre/extension-methods.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Codibre/extension-methods/issues"
+  },
+  "homepage": "https://github.com/Codibre/extension-methods#readme"
 }
