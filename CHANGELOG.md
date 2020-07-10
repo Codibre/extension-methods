@@ -10,8 +10,4 @@
 
 -v0.0.2
 
- - Adding faulting github refernece
-
--v0.0.1
-
   - First release! Implementing extension concept
