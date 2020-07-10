@@ -1,0 +1,42 @@
+{
+  "name": "extension-methods",
+  "version": "0.0.1",
+  "description": "This library allows you to create extension methods for a given object the fatest way",
+  "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "test": "mocha",
+    "prepare": "npm run build",
+    "clear": "npm run clear:build && npm run clear:modules",
+    "clear:build": "del-cli ./dist",
+    "clear:modules": "del-cli ./node_modules",
+    "prebuild": "npm run clear:build && del-cli tsconfig.tsbuildinfo",
+    "build": "tsc",
+    "test:coverage": "nyc npm test",
+    "preaction:verify:update-modules": "npm run action:verify:update-modules:check",
+    "action:verify:update-modules": "npm run action:verify:update-modules:reinstall && npm run action:verify:update-modules:clean",
+    "action:verify:update-modules:clean": "del-cli .check",
+    "lint": "npm run lint:format && npm run lint:style",
+    "lint:fix": "npm run lint:format:fix && npm run lint:style:fix",
+    "lint:format": "prettier --check '{src,test}/**/*.ts'",
+    "lint:format:fix": "prettier --write '{src,test}/**/*.ts'",
+    "lint:style": "eslint '**/*.ts'",
+    "lint:style:fix": "eslint '**/*.ts' --fix",
+    "release:update-changelog": "codibre-confs update-changelog",
+    "postversion": "npm run release:update-changelog"
+  },
+  "keywords": [
+    "extension-methods",
+    "extension",
+    "methods",
+    "extended",
+    "static extension methods"
+  ],
+  "author": "@Codibre",
+  "license": "MIT",
+  "devDependencies": {
+    "@codibre/confs": "0.0.6"
+  }
+}
