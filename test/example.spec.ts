@@ -11,17 +11,17 @@ interface MyObjectExtended extends MyObject {
 }
 
 export const myObjectExtension = getExtender({
-  concatFoo({ value }: MyObject) {
-    return extend({ value: `${value}_foo` }, myObjectExtension);
+  concatFoo(this: MyObject) {
+    return extend({ value: `${this.value}_foo` }, myObjectExtension);
   },
-  concatBar({ value }: MyObject) {
-    return extend({ value: `${value}_bar` }, myObjectExtension);
+  concatBar(this: MyObject) {
+    return extend({ value: `${this.value}_bar` }, myObjectExtension);
   },
 });
 
 describe('Example test', () => {
   it('should return "my string_foo" and "my string_bar"', () => {
-    const extendString: MyObjectExtended & MyObject = extend(
+    const extendString: MyObjectExtended = extend(
       { value: 'my string' },
       myObjectExtension,
     );
