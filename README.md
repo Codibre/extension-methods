@@ -38,6 +38,7 @@ export const myObjectExtension = getExtender({
 ```
 
 <br>
+
 Now, take a look in the **extend** function called in the above code: this is the one who applies the extension!
 The first parameter must be the definition of this, as it will be a reference to the object being extended, so, you can access it and do whatever you want!
 So, when you need to extend methods in some object, just do it like this:
