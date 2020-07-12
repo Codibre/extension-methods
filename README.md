@@ -44,7 +44,6 @@ The first parameter must be the definition of this, as it will be a reference to
 So, when you need to extend methods in some object, just do it like this:
 <br>
 
-
 ```typescript
 import { extend } from 'extension-methods';
 import { myObjectExtension, MyObject, MyObjectExtended } from './my-object-extension';
@@ -62,8 +61,8 @@ console.log(extended.concatFoo().concatBar().value);
 
 ```
 
-
 <br>
+
 Look that does methods actually are not present in the extended const (or in the original object), but **extension-methods** make it be accessible at runtime, making the call to **extend** being much faster!
 Also, in the Extender implementation, the return of **concatFoo** and **concatBar** also applies the **extend** function to the result, which creates a fluent interface for this use, resulting in the chained  call as you can see above!
 All of that, with less overload possible!
@@ -71,6 +70,6 @@ All of that, with less overload possible!
 
 ## Important
 
-* If some method exists in the original object and also is declared in the Extender, the original method will be used;
-* **extension-methods** can't be used with primitive values like **string**, **number** and **boolean**;
-* **extend** will naturally returns a type that is a join between the real object and the extension methods declared, but it is recommendable, if you want a cleaner type or to return such value as a result of a function, to create an interface that represent it, as you can see in the examples above;
+- If some method exists in the original object and also is declared in the Extender, the original method will be used;
+- **extension-methods** can't be used with primitive values like **string**, **number** and **boolean**;
+- **extend** will naturally returns a type that is a join between the real object and the extension methods declared, but it is recommendable, if you want a cleaner type or to return such value as a result of a function, to create an interface that represent it, as you can see in the examples above;
