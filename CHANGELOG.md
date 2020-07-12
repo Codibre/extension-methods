@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Next Release
 
--v0.0.3
+-v0.0.4
 
 - Fixing typing declaration
 
