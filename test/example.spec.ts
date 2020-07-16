@@ -1,4 +1,5 @@
-import { getExtender, extend } from '../src';
+import { ExampleClass } from './example-class.spec';
+import { getExtender, extend, extendClass } from '../src';
 import { expect } from 'chai';
 
 interface MyObject {
@@ -8,6 +9,12 @@ interface MyObject {
 interface MyObjectExtended extends MyObject {
   concatFoo(): MyObjectExtended;
   concatBar(): MyObjectExtended;
+}
+
+declare module './example-class.spec' {
+  interface ExampleClass {
+    method1(): number;
+  }
 }
 
 export const myObjectExtension = getExtender({
@@ -31,5 +38,18 @@ describe('Example test', () => {
     expect(extendString.concatFoo().concatBar().value).to.be.eq(
       'my string_foo_bar',
     );
+  });
+
+  it('should instantiate an extended class with access to extended methods', () => {
+    const extender = getExtender({
+      method1(this: ExampleClass) {
+        return this.someProperty * 3;
+      },
+    });
+    const ExtendedClass = extendClass(ExampleClass, extender);
+
+    const instance = new ExtendedClass();
+
+    expect(instance.method1()).to.be.eq(21);
   });
 });

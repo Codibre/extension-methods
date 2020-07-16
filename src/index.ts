@@ -2,8 +2,8 @@ export interface ProxyReference {
   [key: string]: any;
 }
 
-export interface Extender<T extends object> {
-  get(target: T, name: string): any;
+export interface Extender<_Extension extends ProxyReference> {
+  get<T extends object>(target: T, name: string): any;
 }
 
 export interface FunctionCook {
@@ -47,8 +47,25 @@ export type ExtendedObject<RealObject, Extension> = Extension & RealObject;
 function extend<RealObject extends object, Extension extends object>(
   obj: RealObject,
   extender: Extender<Extension>,
-): RealObject & Extension {
-  return new Proxy(obj, extender as object) as RealObject & Extension;
+): ExtendedObject<RealObject, Extension> {
+  return new Proxy(obj, extender as object) as ExtendedObject<
+    RealObject,
+    Extension
+  >;
 }
 
-export { extend, getExtender };
+type ClassRef<T extends object> = new (...args: any[]) => T;
+
+function extendClass<
+  T extends object,
+  ClassType extends ClassRef<T>,
+  Extension extends object
+>(classRef: ClassType, extender: Extender<Extension>): ClassType {
+  return new Proxy(classRef, {
+    construct(target: any, argArray: any) {
+      return extend(new target(...argArray), extender);
+    },
+  });
+}
+
+export { extend, extendClass, getExtender };

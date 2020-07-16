@@ -68,6 +68,44 @@ Also, in the Extender implementation, the return of **concatFoo** and **concatBa
 All of that, with less overload possible!
 <br>
 
+## Extending Classes
+
+You can also create extended version of Classes that will create instances of such classes with the exactly same benefits of an extended object. To achieve this, just use the method **extendClass**:
+
+```TypeScript
+import * as examplePackage from './example-class';
+import { extendClass, getExtender } from 'extension-methods';
+
+declare module './example-class.spec' {
+  interface ExampleClass {
+    method1(): number;
+  }
+}
+
+const extender = getExtender({
+  method1(this: ExampleClass) {
+    return this.someProperty * 3;
+  },
+});
+
+export const ExtendedClass = extendClass(ExampleClass, extender);
+```
+
+Notice that an interface with the same name of the class is declared in the same module from where the class is imported. Doing this will make the new methods visible anywhere this code is imported.
+
+Now, import your ExtendedClass where you want to use it!
+
+```TypeScript
+import { ExtendedClass } './extended-class';
+
+
+const test = new ExtendedClass();
+
+console.log(test.method1());
+```
+
+And that's it, it'll just work!
+
 ## Important
 
 - If some method exists in the original object and also is declared in the Extender, the original method will be used;

@@ -1,4 +1,4 @@
-import { extend, getExtender, ExtendedObject } from '../src';
+import { extend, getExtender, ExtendedObject, extendClass } from '../src';
 import { expect } from 'chai';
 
 interface Test {
@@ -17,7 +17,7 @@ describe('extend()', () => {
   let extendedObj: ExtendedObject<typeof obj, Test>;
 
   beforeEach(() => {
-    const extension = getExtender({
+    const extender = getExtender({
       method1() {
         return 1;
       },
@@ -27,7 +27,7 @@ describe('extend()', () => {
       property: 'value',
     });
 
-    extendedObj = extend(obj, extension);
+    extendedObj = extend(obj, extender);
   });
 
   it('should call methods of the Extender when there is no method with the same name in the real object', () => {
@@ -71,5 +71,39 @@ describe('extend()', () => {
 
     expect(result).to.be.undefined;
     expect('property3' in obj).to.be.false;
+  });
+});
+
+class MyTestClass {
+  readonly valueTest: number;
+  constructor(test: number) {
+    this.valueTest = test * 2;
+  }
+}
+
+interface MyTestClass {
+  method1(): number;
+}
+
+describe('extendClass()', () => {
+  let ExtendedClass: typeof MyTestClass;
+
+  beforeEach(() => {
+    const extension = getExtender({
+      method1() {
+        return 1;
+      },
+    });
+
+    ExtendedClass = extendClass(MyTestClass, extension);
+  });
+
+  it('should create a new class accessing extended methods', () => {
+    const test = new ExtendedClass(3);
+
+    const result = test.method1();
+
+    expect(result).to.be.eq(1);
+    expect(test.valueTest).to.be.eq(6);
   });
 });
