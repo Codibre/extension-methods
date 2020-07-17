@@ -10,12 +10,14 @@ export interface FunctionCook {
   <T extends object>(value: Function, target: T): Function;
 }
 
-function defaultCookFunction<T extends object>(
+export function defaultCookFunction<T extends object>(
   value: Function,
   target: T,
 ): Function {
   return value.bind(target);
 }
+
+export type PriorityOptions = 'extender' | 'object';
 
 /**
  * Returns an instance of Extender<P> to be used to extend objects
@@ -26,13 +28,27 @@ function defaultCookFunction<T extends object>(
 function getExtender<P extends ProxyReference>(
   proxyReference: P,
   cookFunction: FunctionCook = defaultCookFunction,
+  priority: PriorityOptions = 'object',
 ): Extender<P> {
   return {
-    get<T extends object>(target: T, name: string) {
-      const value =
-        name in target ? target[name as keyof T] : proxyReference[name];
-      return typeof value === 'function' ? cookFunction(value, target) : value;
-    },
+    get:
+      priority === 'object'
+        ? <T extends object>(target: T, name: string) => {
+            const value =
+              name in target ? target[name as keyof T] : proxyReference[name];
+            return typeof value === 'function'
+              ? cookFunction(value, target)
+              : value;
+          }
+        : <T extends object>(target: T, name: string) => {
+            const value =
+              name in proxyReference
+                ? proxyReference[name]
+                : target[name as keyof T];
+            return typeof value === 'function'
+              ? cookFunction(value, target)
+              : value;
+          },
   };
 }
 
