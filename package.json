@@ -1,6 +1,6 @@
 {
   "name": "extension-methods",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "This library allows you to create extension methods for a given object the fatest way",
   "main": "dist/index.js",
   "files": [
