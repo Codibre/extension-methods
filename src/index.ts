@@ -24,6 +24,7 @@ export type PriorityOptions = 'extender' | 'object';
  * @typeparam P Type of the ProxyReference
  * @param proxyReference The ProxyReference from where the extension method will be retrieved
  * @param cookFunction a function to prepare functions to be returned. By default, all functions returns bound with target
+ * @param priority defines wether object will have priority in method choosing: target object (default) or the extender
  */
 function getExtender<P extends ProxyReference>(
   proxyReference: P,
