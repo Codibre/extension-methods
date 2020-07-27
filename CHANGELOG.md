@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Next Release
 
+-v1.0.0
+
+- Releasing first stable version
+
 -v0.1.1
 
 - Implementing parameter in getExtender to choose which priority of method to use: object or the proxy reference
