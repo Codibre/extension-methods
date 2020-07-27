@@ -1,3 +1,10 @@
+[![Actions Status](https://github.com/Codibre/extension-methods/workflows/build/badge.svg)](https://github.com/Codibre/extension-methods/actions)
+[![Actions Status](https://github.com/Codibre/extension-methods/workflows/test/badge.svg)](https://github.com/Codibre/extension-methods/actions)
+[![Actions Status](https://github.com/Codibre/extension-methods/workflows/lint/badge.svg)](https://github.com/Codibre/extension-methods/actions)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/ead6c08b3f629f094362/test_coverage)](https://codeclimate.com/github/Codibre/extension-methods/test_coverage)
+[![Maintainability](https://api.codeclimate.com/v1/badges/ead6c08b3f629f094362/maintainability)](https://codeclimate.com/github/Codibre/extension-methods/maintainability)
+[![npm version](https://badge.fury.io/js/%40codibre%2Fextension-methods.svg)](https://badge.fury.io/js/%40codibre%2Fextension-methods)
+
 # extension-methods
 
 With this library, you can create 'proxy references' for your objects and access many methods that actually doesn't exists in them!
