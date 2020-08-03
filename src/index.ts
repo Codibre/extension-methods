@@ -3,11 +3,11 @@ export interface ProxyReference {
 }
 
 export interface Extender<_Extension extends ProxyReference> {
-  get<T extends object>(target: T, name: string): any;
+  get<T extends object>(target: T, name: string, proxy: T): any;
 }
 
 export interface FunctionCook {
-  <T extends object>(value: Function, target: T): Function;
+  <T extends object>(value: Function, target: T, proxy: T): Function;
 }
 
 export function defaultCookFunction<T extends object>(
@@ -34,20 +34,20 @@ function getExtender<P extends ProxyReference>(
   return {
     get:
       priority === 'object'
-        ? <T extends object>(target: T, name: string) => {
+        ? <T extends object>(target: T, name: string, proxy: T) => {
             const value =
               name in target ? target[name as keyof T] : proxyReference[name];
             return typeof value === 'function'
-              ? cookFunction(value, target)
+              ? cookFunction(value, target, proxy)
               : value;
           }
-        : <T extends object>(target: T, name: string) => {
+        : <T extends object>(target: T, name: string, proxy: T) => {
             const value =
               name in proxyReference
                 ? proxyReference[name]
                 : target[name as keyof T];
             return typeof value === 'function'
-              ? cookFunction(value, target)
+              ? cookFunction(value, target, proxy)
               : value;
           },
   };
