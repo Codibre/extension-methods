@@ -40,6 +40,34 @@ describe('Example test', () => {
     );
   });
 
+  it('should create an extended object using both extensions definitions', () => {
+    const extendString = extend(
+      { value: 'my string' },
+      getExtender([
+        {
+          concatFoo(this: MyObject) {
+            return extend({ value: `${this.value}_foo` }, myObjectExtension);
+          },
+          concatBar(this: MyObject) {
+            return extend({ value: `${this.value}_bar` }, myObjectExtension);
+          },
+        },
+        {
+          test() {
+            return true;
+          },
+        },
+      ]),
+    );
+
+    expect(extendString.concatFoo().value).to.be.eq('my string_foo');
+    expect(extendString.concatBar().value).to.be.eq('my string_bar');
+    expect(extendString.concatFoo().concatBar().value).to.be.eq(
+      'my string_foo_bar',
+    );
+    expect(extendString.test()).to.be.true;
+  });
+
   it('should instantiate an extended class with access to extended methods', () => {
     const extender = getExtender({
       method1(this: ExampleClass) {

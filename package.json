@@ -42,7 +42,6 @@
   "directories": {
     "test": "test"
   },
-  "dependencies": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Codibre/extension-methods.git"
